@@ -5,7 +5,26 @@ AQuery is a lightweight library that allows UI manipulation in a syntatically si
 
 ## Code Samples
 
-Login User
+Constructing AQuery Objects
+
+```java
+  
+  // constructing an AQuery object from a context
+  $ rootView = $(this); // the underlying View is the activity's root layout
+  
+  // constructing an AQuery object from a view
+  $ someView = $(findViewById(R.id.some_view));
+  
+  // constructing an AQuery object for Resource Id
+  $ anotherView = $(this, R.id.another_view));
+
+  // to retrieve the plain View object:
+  View rawView = someView.raw();
+  
+```
+
+
+Login User Example
 
 ```java
 
@@ -62,7 +81,7 @@ Inflating Views
 
   // AQuery
   
-  $ parent = $(this, R.id.parent_layout):
+  $ parent = $(this, R.id.parent_layout);
   $.inflate(this, R.id.child_view, parent)
       .ready(() -> $.toast(this, "The view is rendered!!"))
       .click(view -> {
