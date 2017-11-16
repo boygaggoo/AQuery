@@ -15,7 +15,7 @@ Constructing AQuery Objects
   // constructing an AQuery object from a view
   $ someView = $(findViewById(R.id.some_view));
   
-  // constructing an AQuery object for Resource Id
+  // constructing an AQuery object from Resource Id
   $ anotherView = $(this, R.id.another_view));
 
   // to retrieve the plain View object:
