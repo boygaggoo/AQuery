@@ -5,7 +5,7 @@ AQuery is a lightweight library that allows UI manipulation in a syntatically si
 
 ## Code Samples
 
-Constructing AQuery Objects
+Using AQuery Objects
 
 ```java
   
@@ -128,7 +128,7 @@ Animations
        
 ```
 
-AQuery has a lot features other than the ones showcased here. You can view the [JavaDoc](www.google.com) for detailed documentation.
+AQuery has a lot features other than the ones showcased here. You can view the [JavaDoc](https://mzaart.github.io/AQuery/) for detailed documentation.
 
 ## Getting Started
 
