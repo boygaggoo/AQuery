@@ -132,7 +132,7 @@ AQuery has a lot features other than the ones showcased here. You can view the [
 
 ## Getting Started
 
-All you have to do to get sarted with AQuery is to download [the jar file](https://github.com/mzaart/AQuery/raw/master/AQuery.jar) and place it in the app/libs folder. Then you can import it as follows:
+All you have to do to get sarted with AQuery is to download [the jar file](https://github.com/mzaart/AQuery/raw/master/AQuery.jar) and place it in the app/libs folder. Then right click on the Jar file and click "Add As Library". You can import it as follows:
 
 ```java
 
