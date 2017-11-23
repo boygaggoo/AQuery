@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewPropertyAnimator;
 import android.view.ViewTreeObserver;
+import android.view.animation.Animation;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,8 +39,7 @@ public class $ {
      *
      * @param context Context context
      *
-     * @exception IllegalArgumentException If context is null or not an Activity.
-     * @see  IllegalArgumentException
+     * @throws  IllegalArgumentException If context is null or not an Activity.
      */
      public $(@NonNull Context context) {
         requireNotNull(context);
@@ -55,14 +56,13 @@ public class $ {
      *
      * @param raw The view to be used.
      *
-     * @exception IllegalArgumentException If view is null.
-     * @see  IllegalArgumentException
+     * @throws  IllegalArgumentException If view is null.
      */
      public $(@NonNull View raw) {
         requireNotNull(raw);
 
         this.raw = raw;
-        this.context = raw.getContext();
+        this.context = raw().getContext();
     }
 
     /**
@@ -72,11 +72,10 @@ public class $ {
      * @param context The Context's context.
      * @param id The view's id.
      *
-     * @exception ViewNotFoundException If the view doesn't exist or the id is invalid.
+     * @throws  ViewNotFoundException If the view doesn't exist or the id is invalid.
      * @see  ViewNotFoundException
      *
-     * @exception IllegalArgumentException If context is null or not an Activity.
-     * @see  IllegalArgumentException
+     * @throws  IllegalArgumentException If context is null or not an Activity.
      */
      public $(@NonNull Context context, int id) {
         this.context = context;
@@ -96,11 +95,10 @@ public class $ {
      * @param view The view's parent.
      * @param id The view's id.
      *
-     * @exception ViewNotFoundException If the view doesn't exist or the id is invalid.
+     * @throws  ViewNotFoundException If the view doesn't exist or the id is invalid.
      * @see  ViewNotFoundException
      *
-     * @exception IllegalArgumentException If view is null.
-     * @see  IllegalArgumentException
+     * @throws  IllegalArgumentException If view is null.
      */
      public $(View view, int id) {
         requireNotNull(view);
@@ -119,17 +117,16 @@ public class $ {
      * @param aquery The containing AQuery object.
      * @param id The view's id.
      *
-     * @exception ViewNotFoundException If the view doesn't exist or the id is invalid.
+     * @throws  ViewNotFoundException If the view doesn't exist or the id is invalid.
      * @see  ViewNotFoundException
      *
-     * @exception IllegalArgumentException If AQuery is null.
-     * @see  IllegalArgumentException
+     * @throws  IllegalArgumentException If AQuery is null.
      */
      public $(@NonNull $ aquery, int id) {
         requireNotNull(aquery);
 
         this.context = aquery.context;
-        this.raw = aquery.raw.findViewById(id);
+        this.raw = aquery.raw().findViewById(id);
 
         if (raw == null)
             throw new ViewNotFoundException();
@@ -161,12 +158,12 @@ public class $ {
      * @param  id The View's Id.
      * @return View The base view of the AQuery object.
      *
-     * @exception ViewNotFoundException If the view doesn't exist or the id is invalid.
+     * @throws  ViewNotFoundException If the view doesn't exist or the id is invalid.
      * @see  ViewNotFoundException
      */
     @NonNull
     public $ find(int id) {
-        View target =  raw.findViewById(id);
+        View target =  raw().findViewById(id);
 
         if (target == null)
             throw new ViewNotFoundException();
@@ -179,13 +176,13 @@ public class $ {
      *
      * @return $ AQuery object containing the view's parent.
      *
-     * @exception IllegalParentException If the view's parent isn't a view.
+     * @throws  IllegalParentException If the view's parent isn't a view.
      * @see IllegalParentException
      */
     @NonNull
     public $ parent() {
         try {
-            return new $((View) raw.getParent());
+            return new $((View) raw().getParent());
         } catch (ClassCastException e) {
             throw new IllegalParentException();
         }
@@ -214,12 +211,12 @@ public class $ {
     /**
      * Removes the view.
      *
-     * @exception RuntimeException If the View can't be removed.
+     * @throws  RuntimeException If the View can't be removed.
      * @see  RuntimeException
      */
     public void remove() {
         try {
-            ((ViewGroup) raw.getParent()).removeView(raw);
+            ((ViewGroup) raw().getParent()).removeView(raw);
         } catch (ClassCastException e) {
             throw new RuntimeException("Can't remove view.");
         }
@@ -230,7 +227,7 @@ public class $ {
      *
      * @return $ The current AQuery object.
      *
-     * @exception IllegalViewActionException If the view isn't a ViewGroup.
+     * @throws  IllegalViewActionException If the view isn't a ViewGroup.
      * @see IllegalViewActionException
      */
     @NonNull
@@ -249,16 +246,16 @@ public class $ {
      * @param v The view to append.
      * @return The current AQuery object.
      *
-     * @exception IllegalArgumentException If the view passed is null.
+     * @throws  IllegalArgumentException If the view passed is null.
      * @see IllegalArgumentException
-     * @exception IllegalViewActionException If the view isn't a ViewGroup
+     * @throws  IllegalViewActionException If the view isn't a ViewGroup
      * @see IllegalViewActionException
      */
     @NonNull
     public $ append(@NonNull View v) {
         requireNotNull(v);
         try {
-            ((ViewGroup) raw).addView(v);
+            ((ViewGroup) raw()).addView(v);
             return this;
         } catch (ClassCastException e) {
             throw new IllegalViewActionException();
@@ -271,9 +268,8 @@ public class $ {
      * @param v The AQuery object containing the view to append.
      * @return The current AQuery object.
      *
-     * @exception IllegalArgumentException If the AQuery passed is null.
-     * @see IllegalArgumentException
-     * @exception IllegalViewActionException If the view isn't a ViewGroup
+     * @throws  IllegalArgumentException If the AQuery passed is null.
+     * @throws  IllegalViewActionException If the view isn't a ViewGroup
      * @see IllegalViewActionException
      */
     @NonNull
@@ -281,7 +277,7 @@ public class $ {
         requireNotNull(v);
 
         try {
-            ((ViewGroup) raw).addView(v.raw);
+            ((ViewGroup) raw()).addView(v.raw());
             return this;
         } catch (ClassCastException e) {
             throw new IllegalViewActionException();
@@ -296,9 +292,9 @@ public class $ {
      * @param height The appended view's height
      * @return The current AQuery object.
      *
-     * @exception IllegalArgumentException If the view passed is null.
+     * @throws  IllegalArgumentException If the view passed is null.
      * @see IllegalArgumentException
-     * @exception IllegalViewActionException If the view isn't a ViewGroup
+     * @throws  IllegalViewActionException If the view isn't a ViewGroup
      * @see IllegalViewActionException
      */
     @NonNull
@@ -306,7 +302,7 @@ public class $ {
         requireNotNull(v);
 
         try {
-            ((ViewGroup) raw).addView(v, width, height);
+            ((ViewGroup) raw()).addView(v, width, height);
             return this;
         } catch (ClassCastException e) {
             throw new IllegalViewActionException();
@@ -321,9 +317,8 @@ public class $ {
      * @param height The appended view's height
      * @return The current AQuery object.
      *
-     * @exception IllegalArgumentException If the AQuery passed is null.
-     * @see IllegalArgumentException
-     * @exception IllegalViewActionException If the view isn't a ViewGroup
+     * @throws  IllegalArgumentException If the AQuery passed is null.
+     * @throws  IllegalViewActionException If the view isn't a ViewGroup
      * @see IllegalViewActionException
      */
     @NonNull
@@ -331,7 +326,7 @@ public class $ {
         requireNotNull(v);
 
         try {
-            ((ViewGroup) raw).addView(v.raw, width, height);
+            ((ViewGroup) raw()).addView(v.raw(), width, height);
             return this;
         } catch (ClassCastException e) {
             throw new IllegalViewActionException();
@@ -345,9 +340,8 @@ public class $ {
      * @param params The appended view's layout params.
      * @return The current AQuery object.
      *
-     * @exception IllegalArgumentException If the view or layout params passed are null.
-     * @see IllegalArgumentException
-     * @exception IllegalViewActionException If the view isn't a ViewGroup
+     * @throws  IllegalArgumentException If the view or layout params passed are null.
+     * @throws  IllegalViewActionException If the view isn't a ViewGroup
      * @see IllegalViewActionException
      */
     @NonNull
@@ -355,7 +349,7 @@ public class $ {
         requireNotNull(v, params);
 
         try {
-            ((ViewGroup) raw).addView(v, params);
+            ((ViewGroup) raw()).addView(v, params);
             return this;
         } catch (ClassCastException e) {
             throw new IllegalViewActionException();
@@ -369,9 +363,8 @@ public class $ {
      * @param params The appended view's layout params.
      * @return The current AQuery object.
      *
-     * @exception IllegalArgumentException If the AQuery or layout params passed are null.
-     * @see IllegalArgumentException
-     * @exception IllegalViewActionException If the view isn't a ViewGroup
+     * @throws  IllegalArgumentException If the AQuery or layout params passed are null.
+     * @throws  IllegalViewActionException If the view isn't a ViewGroup
      * @see IllegalViewActionException
      */
     @NonNull
@@ -379,7 +372,7 @@ public class $ {
         requireNotNull(v, params);
 
         try {
-            ((ViewGroup) raw).addView(v.raw, params);
+            ((ViewGroup) raw()).addView(v.raw(), params);
             return this;
         } catch (ClassCastException e) {
             throw new IllegalViewActionException();
@@ -393,9 +386,8 @@ public class $ {
      * @param index The index to append the view at.
      * @return The current AQuery object.
      *
-     * @exception IllegalArgumentException If the view passed is null.
-     * @see IllegalArgumentException
-     * @exception IllegalViewActionException If the view isn't a ViewGroup
+     * @throws  IllegalArgumentException If the view passed is null.
+     * @throws  IllegalViewActionException If the view isn't a ViewGroup
      * @see IllegalViewActionException
      */
     @NonNull
@@ -403,7 +395,7 @@ public class $ {
         requireNotNull(v);
 
         try {
-            ((ViewGroup) raw).addView(v, index);
+            ((ViewGroup) raw()).addView(v, index);
             return this;
         } catch (ClassCastException e) {
             throw new IllegalViewActionException();
@@ -417,9 +409,8 @@ public class $ {
      * @param index The index to append the view at.
      * @return The current AQuery object.
      *
-     * @exception IllegalArgumentException If the AQuery passed is null.
-     * @see IllegalArgumentException
-     * @exception IllegalViewActionException If the view isn't a ViewGroup
+     * @throws  IllegalArgumentException If the AQuery passed is null.
+     * @throws  IllegalViewActionException If the view isn't a ViewGroup
      * @see IllegalViewActionException
      */
     @NonNull
@@ -427,7 +418,7 @@ public class $ {
         requireNotNull(v);
 
         try {
-            ((ViewGroup) raw).addView(v.raw, index);
+            ((ViewGroup) raw()).addView(v.raw, index);
             return this;
         } catch (ClassCastException e) {
             throw new IllegalViewActionException();
@@ -442,9 +433,8 @@ public class $ {
      * @param params The appended view's layout params.
      * @return The current AQuery object.
      *
-     * @exception IllegalArgumentException If the view or layout params passed are null.
-     * @see IllegalArgumentException
-     * @exception IllegalViewActionException If the view isn't a ViewGroup
+     * @throws  IllegalArgumentException If the view or layout params passed are null.
+     * @throws  IllegalViewActionException If the view isn't a ViewGroup
      * @see IllegalViewActionException
      */
     @NonNull
@@ -452,7 +442,7 @@ public class $ {
         requireNotNull(v, params);
 
         try {
-            ((ViewGroup) raw).addView(v, index, params);
+            ((ViewGroup) raw()).addView(v, index, params);
             return this;
         } catch (ClassCastException e) {
             throw new IllegalViewActionException();
@@ -467,9 +457,8 @@ public class $ {
      * @param params The appended view's layout params.
      * @return The current AQuery object.
      *
-     * @exception IllegalArgumentException If the AQuery or layout params passed are null.
-     * @see IllegalArgumentException
-     * @exception IllegalViewActionException If the view isn't a ViewGroup
+     * @throws  IllegalArgumentException If the AQuery or layout params passed are null.
+     * @throws  IllegalViewActionException If the view isn't a ViewGroup
      * @see IllegalViewActionException
      */
     @NonNull
@@ -477,7 +466,7 @@ public class $ {
         requireNotNull(v, params);
 
         try {
-            ((ViewGroup) raw).addView(v.raw, index, params);
+            ((ViewGroup) raw()).addView(v.raw(), index, params);
             return this;
         } catch (ClassCastException e) {
             throw new IllegalViewActionException();
@@ -490,13 +479,12 @@ public class $ {
      * @param onClickListener The onClickListener to be executed when the view is clicked.
      * @return $ Current AQuery object.
      *
-     * @exception IllegalArgumentException If the onClickListener passed is null.
-     * @see IllegalArgumentException
+     * @throws  IllegalArgumentException If the onClickListener passed is null.
      */
     @NonNull
     public $ click(@NonNull final OnClickListener onClickListener) {
         requireNotNull(onClickListener);
-        raw.setOnClickListener(new View.OnClickListener() {
+        raw().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onClickListener.onClick(view);
@@ -526,12 +514,11 @@ public class $ {
      * @return The current AQuery object
      *
      * @throws IllegalArgumentException If the runnable passed in null
-     * @see IllegalArgumentException
      */
     @NonNull
     public $ preDraw(@NonNull final Runnable runnable) {
         requireNotNull(runnable);
-        final ViewTreeObserver treeObserver = raw.getViewTreeObserver();
+        final ViewTreeObserver treeObserver = raw().getViewTreeObserver();
         treeObserver.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
             public boolean onPreDraw() {
@@ -553,21 +540,20 @@ public class $ {
      * @return The current AQuery object
      *
      * @throws IllegalArgumentException If the runnable passed in null
-     * @see IllegalArgumentException
      */
     @NonNull
     public $ ready(@NonNull final Runnable runnable) {
         requireNotNull(runnable);
-        ViewTreeObserver treeObserver = raw.getViewTreeObserver();
+        ViewTreeObserver treeObserver = raw().getViewTreeObserver();
         treeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @SuppressLint("ObsoleteSdkInt")
             @Override
             public void onGlobalLayout() {
                 runnable.run();
                 if (Build.VERSION.SDK_INT < 16) {
-                    raw.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                    raw().getViewTreeObserver().removeGlobalOnLayoutListener(this);
                 } else {
-                    raw.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    raw().getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 }
             }
         });
@@ -582,7 +568,7 @@ public class $ {
      */
     @NonNull
     public ViewGroup.LayoutParams layoutParams() {
-        return raw.getLayoutParams();
+        return raw().getLayoutParams();
     }
 
     /**
@@ -591,7 +577,7 @@ public class $ {
      * @return The visual x position of this view, in pixels.
      */
     public float x() {
-        return raw.getX();
+        return raw().getX();
     }
 
     /**
@@ -602,7 +588,7 @@ public class $ {
      */
     @NonNull
     public $ x(float position) {
-        raw.setX(position);
+        raw().setX(position);
         return this;
     }
 
@@ -612,7 +598,7 @@ public class $ {
      * @return The visual y position of this view, in pixels.
      */
     public float y() {
-        return raw.getY();
+        return raw().getY();
     }
 
     /**
@@ -623,7 +609,7 @@ public class $ {
      */
     @NonNull
     public $ y(float position) {
-        raw.setY(position);
+        raw().setY(position);
         return this;
     }
 
@@ -632,14 +618,14 @@ public class $ {
      *
      * @return The visual z position of this view.
      *
-     * @exception SDKVersionException If the SDK version is lower than 21.
+     * @throws  SDKVersionException If the SDK version is lower than 21.
      * @see SDKVersionException
      */
     public float z() {
         if (Build.VERSION.SDK_INT < 21)
                 throw new SDKVersionException();
         else
-            return raw.getZ();
+            return raw().getZ();
     }
 
     /**
@@ -648,7 +634,7 @@ public class $ {
      * @param position The visual z position.
      * @return The Current AQuery object.
      *
-     * @exception SDKVersionException If the SDK version is lower than 21.
+     * @throws  SDKVersionException If the SDK version is lower than 21.
      * @see SDKVersionException
      */
     @NonNull
@@ -656,7 +642,7 @@ public class $ {
         if (Build.VERSION.SDK_INT < 21)
             throw new SDKVersionException();
         else {
-            raw.setZ(position);
+            raw().setZ(position);
             return this;
         }
     }
@@ -667,7 +653,7 @@ public class $ {
      * @return The horizontal location of this view relative to its left position.
      */
     public float translationX() {
-        return raw.getTranslationX();
+        return raw().getTranslationX();
     }
 
     /**
@@ -678,7 +664,7 @@ public class $ {
      */
     @NonNull
     public $ translationX(float offset) {
-        raw.setTranslationX(offset);
+        raw().setTranslationX(offset);
         return this;
     }
 
@@ -688,7 +674,7 @@ public class $ {
      * @return The vertical location of this view relative to its left position.
      */
     public float translationY() {
-        return raw.getTranslationY();
+        return raw().getTranslationY();
     }
 
     /**
@@ -699,7 +685,7 @@ public class $ {
      */
     @NonNull
     public $ translationY(float offset) {
-        raw.setTranslationY(offset);
+        raw().setTranslationY(offset);
         return this;
     }
 
@@ -708,14 +694,14 @@ public class $ {
      *
      * @return The depth location of this view relative to its elevation.
      *
-     * @exception SDKVersionException If the SDK version is lower than 21.
+     * @throws  SDKVersionException If the SDK version is lower than 21.
      * @see SDKVersionException
      */
     public float translationZ() {
         if (Build.VERSION.SDK_INT < 21)
             throw new SDKVersionException();
         else
-            return raw.getTranslationZ();
+            return raw().getTranslationZ();
     }
 
     /**
@@ -729,7 +715,7 @@ public class $ {
         if (Build.VERSION.SDK_INT < 21)
             throw new SDKVersionException();
         else {
-            raw.setTranslationZ(offset);
+            raw().setTranslationZ(offset);
             return this;
         }
     }
@@ -741,7 +727,21 @@ public class $ {
      */
     @NonNull
     public ViewPropertyAnimator animate() {
-        return raw.animate();
+        return raw().animate();
+    }
+
+    /**
+     * Applies an animation on the view
+     * 
+     * @param animation The animation to apply
+     * @return The current AQuery object
+     * 
+     * @throws  IllegalArgumentException If animation is null
+     */
+    public $ animate(@NonNull Animation animation) {
+        requireNotNull(animation);
+        raw().startAnimation(animation);
+        return this;
     }
 
     /**
@@ -751,41 +751,143 @@ public class $ {
      */
     @NonNull
     public $ bringToFront() {
-        raw.bringToFront();
+        raw().bringToFront();
         return this;
     }
 
     /**
      * Returns the text of the TextView.
      *
-     * @exception IllegalViewActionException If the view isn't a TextView.
+     * @throws  IllegalViewActionException If the view isn't a TextView.
      * @see IllegalViewActionException
      */
     @NonNull
     public String text() {
-        if (raw() instanceof EditText)
+        if (raw() instanceof EditText) {
             return ((EditText) raw()).getText().toString();
-        else if (raw() instanceof TextView)
+        } else if (raw() instanceof TextView) {
             return (String) ((TextView) raw()).getText();
-        else
+        } else {
             throw new IllegalViewActionException();
+        }
     }
 
     /**
-     * Sets the text of the TextView.
+     * Sets the text of the view.
      *
      * @param  text The text to set.
-     * @return $ Current AQuery object
+     * @return Current AQuery object
      *
-     * @exception IllegalViewActionException If the view isn't a TextView.
+     * @throws  IllegalViewActionException If the view isn't a TextView or an EditText.
      * @see IllegalViewActionException
      */
     @NonNull
     public $ text(String text) {
-        try {
-            ((TextView) raw).setText(text);
-            return this;
-        } catch (ClassCastException e) {
+        if (raw() instanceof EditText) {
+            ((EditText) raw()).setText(text);
+        } else if (raw() instanceof TextView) {
+            ((TextView) raw()).setText(text);
+        } else {
+            throw new IllegalViewActionException();
+        }
+        
+        return this;
+    }
+
+    /**
+     * Sets the text size of the View
+     *
+     * @param textSize The text size to set
+     * @return The current AQuery object
+     *
+     * @throws IllegalViewActionException If the view isn't a TextView or EditText
+     * @see IllegalViewActionException
+     */
+    public $ textSize(float textSize) {
+        if (raw() instanceof EditText) {
+            ((EditText) raw()).setTextSize(textSize);
+        } else if (raw() instanceof TextView) {
+            ((TextView) raw()).setTextSize(textSize);
+        } else {
+            throw new IllegalViewActionException();
+        }
+
+        return this;
+    }
+
+    /**
+     * Gets the font size
+     *
+     * @return The font size in pixels
+     *
+     * @throws IllegalViewActionException If the view isn't a TextView or EditText
+     * @see IllegalViewActionException
+     */
+    public float textSize() {
+        if (raw() instanceof EditText) {
+            return ((EditText) raw()).getTextSize();
+        } else if (raw() instanceof TextView) {
+            return ((TextView) raw()).getTextSize();
+        } else {
+            throw new IllegalViewActionException();
+        }
+    }
+
+    /**
+     * Sets the typeface of the view
+     *
+     * @param path The path to the font file
+     * @return The current AQuery object
+     *
+     * @throws IllegalArgumentException If path is null
+     *
+     * @throws IllegalViewActionException If the view isn't a TextView or EditText
+     * @see IllegalViewActionException
+     */
+    public $ typeFace(@NonNull String path) {
+        requireNotNull(path);
+        Typeface t = Typeface.createFromAsset(context().getAssets(), path);
+        return typeFace(t);
+    }
+
+    /**
+     * Sets the typeface of the view
+     *
+     * @param typeface The typeface to set
+     * @return The current AQuery object
+     *
+     * @throws IllegalArgumentException If typeface is null
+     *
+     * @throws IllegalViewActionException If the view isn't a TextView or EditText
+     * @see IllegalViewActionException
+     */
+    public $ typeFace(@NonNull Typeface typeface) {
+        requireNotNull(typeface);
+        if (raw() instanceof EditText) {
+            ((EditText) raw()).setTypeface(typeface);
+        } else if (raw() instanceof TextView) {
+            ((TextView) raw()).setTypeface(typeface);
+        } else {
+            throw new IllegalViewActionException();
+        }
+
+        return this;
+    }
+
+    /**
+     * Gets the typeface of the view
+     *
+     * @return The current AQuery object
+     *
+     * @throws IllegalViewActionException If the view isn't a TextView or EditText
+     * @see IllegalViewActionException
+     */
+    public Typeface typeface() {
+        if (raw() instanceof EditText) {
+            return ((EditText) raw()).getTypeface();
+        } else if (raw() instanceof TextView) {
+           return ((TextView) raw()).getTypeface();
+        } else {
             throw new IllegalViewActionException();
         }
     }
@@ -796,13 +898,13 @@ public class $ {
      * @param  bitmap The bitmap to set.
      * @return $ Current AQuery object
      *
-     * @exception IllegalViewActionException If the view isn't an ImageView.
+     * @throws  IllegalViewActionException If the view isn't an ImageView.
      * @see IllegalViewActionException
      */
     @NonNull
     public $ bitmap(Bitmap bitmap) {
         try {
-            ((ImageView) raw).setImageBitmap(bitmap);
+            ((ImageView) raw()).setImageBitmap(bitmap);
             return this;
         } catch (ClassCastException e) {
             throw new IllegalViewActionException();
@@ -815,7 +917,7 @@ public class $ {
      * @return int the width of the view.
      */
     public int width() {
-        return raw.getWidth();
+        return raw().getWidth();
     }
 
     /**
@@ -826,9 +928,9 @@ public class $ {
      */
     @NonNull
     public $ width(int width) {
-        ViewGroup.LayoutParams params = raw.getLayoutParams();
+        ViewGroup.LayoutParams params = raw().getLayoutParams();
         params.width = width;
-        raw.requestLayout();
+        raw().requestLayout();
         return this;
     }
 
@@ -838,7 +940,7 @@ public class $ {
      * @return int the height of the view.
      */
     public int height() {
-        return raw.getHeight();
+        return raw().getHeight();
     }
 
     /**
@@ -849,9 +951,9 @@ public class $ {
      */
     @NonNull
     public $ height(int height) {
-        ViewGroup.LayoutParams params = raw.getLayoutParams();
+        ViewGroup.LayoutParams params = raw().getLayoutParams();
         params.height = height;
-        raw.requestLayout();
+        raw().requestLayout();
         return this;
     }
 
@@ -864,8 +966,7 @@ public class $ {
      * @param parent The layout's parent.
      * @return An AQuery object containing the inflated layout.
      *
-     * @exception IllegalArgumentException If the context or parent is null.
-     * @see IllegalArgumentException
+     * @throws  IllegalArgumentException If the context or parent is null.
      */
     @NonNull
     public static $ inflate(@NonNull Context context, int id, @NonNull ViewGroup parent) {
@@ -881,9 +982,8 @@ public class $ {
      * @param parent The layout's parent.
      * @return An AQuery object containing the inflated layout.
      *
-     * @exception IllegalArgumentException If the context or parent is null or
+     * @throws  IllegalArgumentException If the context or parent is null or
      * the parent view is a ViewGroup.
-     * @see IllegalArgumentException
      */
     @NonNull
     public static $ inflate(@NonNull Context context, int id, @NonNull $ parent) {
@@ -900,8 +1000,7 @@ public class $ {
      * @param attachToParent If true the inflated layout will be attached to its parent.
      * @return An AQuery object containing the inflated layout.
      *
-     * @exception IllegalArgumentException If the context or parent is null.
-     * @see IllegalArgumentException
+     * @throws  IllegalArgumentException If the context or parent is null.
      */
     @NonNull
     public static $ inflate(Context context, int id, ViewGroup parent, boolean attachToParent) {
@@ -919,15 +1018,14 @@ public class $ {
      * @param attachToParent If true the inflated layout will be attached to its parent.
      * @return An AQuery object containing the inflated layout.
      *
-     * @exception IllegalArgumentException If the context or parent is null or
+     * @throws  IllegalArgumentException If the context or parent is null or
      * the parent view isn't a ViewGroup.
-     * @see IllegalArgumentException
      */
     @NonNull
     public static $ inflate(Context context, int id, $ parent, boolean attachToParent) {
         try {
             LayoutInflater inflater = LayoutInflater.from(context);
-            View layout = inflater.inflate(id, (ViewGroup) parent.raw, attachToParent);
+            View layout = inflater.inflate(id, (ViewGroup) parent.raw(), attachToParent);
             return new $(layout);
         } catch (ClassCastException e) {
             throw new IllegalArgumentException("The parent view isn't a ViewGroup.");
@@ -941,8 +1039,7 @@ public class $ {
      * @param context The required context.
      * @param msg The message to display.
      *
-     * @exception IllegalArgumentException If context or msg is null.
-     * @see IllegalArgumentException
+     * @throws  IllegalArgumentException If context or msg is null.
      */
     public static void toast(Context context, String msg) {
         requireNotNull(context, msg);
@@ -956,8 +1053,7 @@ public class $ {
      * @param context The required context.
      * @param msg The message to display.
      *
-     * @exception IllegalArgumentException If context or msg is null.
-     * @see IllegalArgumentException
+     * @throws  IllegalArgumentException If context or msg is null.
      */
     public static void toastLong(Context context, String msg) {
         requireNotNull(context, msg);
@@ -1006,8 +1102,7 @@ public class $ {
      * @param context Required context.
      * @return The screen height in pixels.
      *
-     * @exception IllegalArgumentException If context isn't an Activity
-     * @see IllegalArgumentException
+     * @throws  IllegalArgumentException If context isn't an Activity
      */
     public static int getScreenHeight(Context context) {
         try {
@@ -1025,8 +1120,7 @@ public class $ {
      * @param context Required context.
      * @return The screen width in pixels.
      *
-     * @exception IllegalArgumentException If context isn't an Activity
-     * @see IllegalArgumentException
+     * @throws  IllegalArgumentException If context isn't an Activity
      */
     public static int getScreenWidth(Context context) {
         try {
