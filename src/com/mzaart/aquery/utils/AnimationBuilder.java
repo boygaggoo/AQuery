@@ -14,8 +14,6 @@ import com.mzaart.aquery.interfaces.AnimationListener;
 @SuppressWarnings("unused")
 public class AnimationBuilder {
 
-    private static final int DEFAULT_DURATION = 1000;
-
     private int resId;
     private Context context;
 
@@ -54,8 +52,6 @@ public class AnimationBuilder {
 
         if (duration > 0) {
             anim.setDuration(duration);
-        } else {
-            anim.setDuration(DEFAULT_DURATION);
         }
 
         anim.setAnimationListener(new Animation.AnimationListener() {

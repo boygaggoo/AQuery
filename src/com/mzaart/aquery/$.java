@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
@@ -17,21 +18,23 @@ import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mzaart.aquery.exceptions.SDKVersionException;
-import com.mzaart.aquery.interfaces.OnClickListener;
+import com.mzaart.aquery.interfaces.EventListener;
+import com.mzaart.aquery.interfaces.SeekBarProgressChangedListener;
 import com.mzaart.aquery.utils.Validator;
 import com.mzaart.aquery.exceptions.IllegalParentException;
 import com.mzaart.aquery.exceptions.IllegalViewActionException;
 import com.mzaart.aquery.exceptions.ViewNotFoundException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @SuppressWarnings({"unused", "WeakerAccess", "Convert2Lambda", "Anonymous2MethodRef"})
 public class $ {
-
-    // small changes
-    // small changes 2
 
     private Context context;
     private View raw;
@@ -179,7 +182,7 @@ public class $ {
      *
      * @return $ AQuery object containing the view's parent.
      *
-     * @throws  IllegalParentException If the view's parent isn't a view.
+     * @throws  IllegalParentException If the view's parent is not a view.
      * @see IllegalParentException
      */
     @NonNull
@@ -188,6 +191,60 @@ public class $ {
             return new $((View) raw().getParent());
         } catch (ClassCastException e) {
             throw new IllegalParentException();
+        }
+    }
+
+    /**
+     * Returns the child count of the ViewGroup
+     *
+     * @return The child count of the ViewGroup
+     *
+     * @throws IllegalViewActionException If the view is not a ViewGroup
+     * @see IllegalViewActionException
+     */
+    public int childCount() {
+        if (raw() instanceof ViewGroup) {
+            return ((ViewGroup) raw()).getChildCount();
+        } else {
+            throw new IllegalViewActionException();
+        }
+    }
+
+    /**
+     * Returns the child of of the ViewGroup at the specified index
+     *
+     * @param index The index of the child to return
+     * @return The child at the specified index
+     *
+     * @throws IllegalViewActionException If the view is not a ViewGroup
+     * @see IllegalViewActionException
+     */
+    @NonNull
+    public $ childAt(int index) {
+        if (raw() instanceof ViewGroup) {
+            return new $(((ViewGroup) raw()).getChildAt(index));
+        } else {
+            throw new IllegalViewActionException();
+        }
+    }
+
+    /**
+     * Returns a list of the ViewGroup's children
+     * @return A list containing the ViewGroup's children
+     *
+     * @throws IllegalViewActionException If the view is not a ViewGroup
+     * @see IllegalViewActionException
+     */
+    @NonNull
+    public List<$> children() {
+        if (raw() instanceof ViewGroup) {
+            List<$> children = new ArrayList<>(childCount());
+            for (int i = 0; i < childCount(); i++) {
+                children.add(childAt(i));
+            }
+            return children;
+        } else {
+            throw new IllegalViewActionException();
         }
     }
 
@@ -485,12 +542,12 @@ public class $ {
      * @throws  IllegalArgumentException If the onClickListener passed is null.
      */
     @NonNull
-    public $ click(@NonNull final OnClickListener onClickListener) {
+    public $ click(@NonNull final EventListener onClickListener) {
         requireNotNull(onClickListener);
         raw().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onClickListener.onClick(view);
+                onClickListener.onEvent(new $(view));
             }
         });
 
@@ -910,6 +967,165 @@ public class $ {
             ((ImageView) raw()).setImageBitmap(bitmap);
             return this;
         } catch (ClassCastException e) {
+            throw new IllegalViewActionException();
+        }
+    }
+
+    /**
+     * Sets a drawable as a view's background
+     *
+     * @param background The drawable to set as background
+     * @return The current AQuery object
+     *
+     * @throws IllegalArgumentException If the background drawable is null
+     */
+    @NonNull
+    public $ background(@NonNull Drawable background) {
+        requireNotNull(background);
+        raw().setBackground(background);
+        return this;
+    }
+
+
+    /**
+     * Sets the maximum value for a SeekBar
+     *
+     * @param max The max value to set
+     * @return The current AQuery object
+     *
+     * @throws IllegalViewActionException If view isn't a SeekBar
+     * @see IllegalViewActionException
+     */
+    @NonNull
+    public $ max(int max) {
+        if (raw() instanceof SeekBar) {
+            ((SeekBar) raw()).setMax(max);
+            return this;
+        } else {
+            throw new IllegalViewActionException();
+        }
+    }
+
+    /**
+     * Gets the max value of a SeekBar
+     *
+     * @return The max value of the SeekBar
+     *
+     * @throws IllegalViewActionException f view isn't a SeekBar
+     * @see IllegalViewActionException
+     */
+    public int max() {
+        if (raw() instanceof SeekBar) {
+            return ((SeekBar) raw()).getMax();
+        } else {
+            throw new IllegalViewActionException();
+        }
+    }
+
+    /**
+     * Sets the minimum value for a SeekBar
+     *
+     * @param min The min value to set
+     * @return The current AQuery object
+     *
+     * @throws IllegalViewActionException If view isn't a SeekBar
+     * @see IllegalViewActionException
+     *
+     * @throws SDKVersionException If the SDK version is less than O
+     * @see SDKVersionException
+     */
+    @NonNull
+    public $ min(int min) {
+        if (raw() instanceof SeekBar) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                ((SeekBar) raw()).setMin(min);
+            } else {
+                throw new SDKVersionException();
+            }
+            return this;
+        } else {
+            throw new IllegalViewActionException();
+        }
+    }
+
+    /**
+     * Gets the min value of a SeekBar
+     *
+     * @return The min value of the SeekBar
+     *
+     * @throws IllegalViewActionException If view isn't a SeekBar
+     * @see IllegalViewActionException
+     *
+     * @throws SDKVersionException If the SDK version is less than O
+     * @see SDKVersionException
+     */
+    public int min() {
+        if (raw() instanceof SeekBar) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                return ((SeekBar) raw()).getMin();
+            } else {
+                throw new SDKVersionException();
+            }
+        } else {
+            throw new IllegalViewActionException();
+        }
+    }
+
+    /**
+     * Sets the progress of a SeekBar
+     *
+     * @param progress The progress to set
+     * @return The current AQuery object
+     *
+     * @throws IllegalViewActionException If the view isn't a SeekBar
+     * @see IllegalViewActionException
+     *
+     * @throws SDKVersionException If the SDK version is less that version N
+     * @see SDKVersionException
+     */
+    @NonNull
+    public $ progress(int progress) {
+        return progress(progress, false);
+    }
+
+    /**
+     * Sets the progress of a SeekBar
+     *
+     * @param progress The progress to set
+     * @param animate If true, the change of progress will be animated
+     * @return The current AQuery object
+     *
+     * @throws IllegalViewActionException If the view isn't a SeekBar
+     * @see IllegalViewActionException
+     *
+     * @throws SDKVersionException If the SDK version is less that version N
+     * @see SDKVersionException
+     */
+    @NonNull
+    public $ progress(int progress, boolean animate) {
+        if (raw() instanceof SeekBar) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                ((SeekBar) raw()).setProgress(progress, animate);
+            } else {
+                throw new SDKVersionException();
+            }
+            return this;
+        } else {
+            throw new IllegalViewActionException();
+        }
+    }
+
+    /**
+     * Gets the current progress of the SeekBar
+     * @return The current progress of the SeekBar
+     *
+     * @throws IllegalViewActionException If the view is not a ViewGroup
+     * @see IllegalViewActionException
+     */
+    public int progress() {
+        if (raw() instanceof SeekBar) {
+            return ((SeekBar) raw()).getProgress();
+        } else {
             throw new IllegalViewActionException();
         }
     }
