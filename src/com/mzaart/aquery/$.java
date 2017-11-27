@@ -30,6 +30,9 @@ import com.mzaart.aquery.exceptions.ViewNotFoundException;
 @SuppressWarnings({"unused", "WeakerAccess", "Convert2Lambda", "Anonymous2MethodRef"})
 public class $ {
 
+    // small changes
+    // small changes 2
+
     private Context context;
     private View raw;
 
