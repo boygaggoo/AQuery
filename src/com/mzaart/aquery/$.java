@@ -1131,6 +1131,141 @@ public class $ {
     }
 
     /**
+     * Sets a listener for when the user has stopped a touch gesture
+     *
+     * Note: Do not use this method in conjunction with the methods startTrackingTouch() and
+     * progressChanged(). If you want to listen to multiple seek bar events, use seekBarChanged().
+     *
+     * @param eventListener The listener to set
+     * @return The current AQuery object
+     *
+     * @throws IllegalViewActionException If the view is not a SeekBar
+     * @see IllegalViewActionException
+     *
+     * @throws IllegalArgumentException If the listener is null
+     */
+    public $ stopTrackingTouch(@NonNull final EventListener eventListener) {
+        requireNotNull(eventListener);
+        if (raw() instanceof SeekBar) {
+            ((SeekBar) raw()).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+                }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+                    eventListener.onEvent(new $(seekBar));
+                }
+            });
+            return this;
+        } else {
+            throw new IllegalViewActionException();
+        }
+    }
+
+    /**
+     * Sets a listener for when the user has started a touch gesture
+     *
+     * Note: Do not use this method in conjunction with the methods stopTrackingTouch() and
+     * progressChanged(). If you want to listen to multiple seek bar events, use seekBarChanged().
+     *
+     * @param eventListener The listener to set
+     * @return The current AQuery object
+     *
+     * @throws IllegalViewActionException If the view is not a SeekBar
+     * @see IllegalViewActionException
+     *
+     * @throws IllegalArgumentException If the listener is null
+     */
+    public $ startTrackingTouch(@NonNull final EventListener eventListener) {
+        requireNotNull(eventListener);
+        if (raw() instanceof SeekBar) {
+            ((SeekBar) raw()).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+                    eventListener.onEvent(new $(seekBar));
+                }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+                }
+            });
+            return this;
+        } else {
+            throw new IllegalViewActionException();
+        }
+    }
+
+    /**
+     * Sets a listener for when the seek bar's progress has changed
+     *
+     * Note: Do not use this method in conjunction with the methods stopTrackingTouch() and
+     * startTrackingTouch(). If you want to listen to multiple seek bar events, use seekBarChanged().
+     *
+     * @param listener The listener to set
+     * @return The current AQuery object
+     *
+     * @throws IllegalViewActionException If the view is not a SeekBar
+     * @see IllegalViewActionException
+     *
+     * @throws IllegalArgumentException If the listener is null
+     */
+    public $ progressChanged(@NonNull final SeekBarProgressChangedListener listener) {
+        requireNotNull(listener);
+        if (raw() instanceof SeekBar) {
+            ((SeekBar) raw()).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                    listener.onProgressChanged(new $(seekBar), i, b);
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+                }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+                }
+            });
+            return this;
+        } else {
+            throw new IllegalViewActionException();
+        }
+    }
+
+    /**
+     * Sets a listener for seek bar change events
+     *
+     * Note: Do not use this method in conjunction with the methods stopTrackingTouch(),
+     * startTrackingTouch() and progressChanged().
+     *
+     * @param listener The listener to set
+     * @return The current AQuery object
+     *
+     * @throws IllegalViewActionException If the view is not a SeekBar
+     * @see IllegalViewActionException
+     *
+     * @throws IllegalArgumentException If the listener is null
+     */
+    public $ seekBarChanged(@NonNull final SeekBar.OnSeekBarChangeListener listener) {
+        requireNotNull(listener);
+        if (raw() instanceof SeekBar) {
+            ((SeekBar) raw()).setOnSeekBarChangeListener(listener);
+            return this;
+        } else {
+            throw new IllegalViewActionException();
+        }
+    }
+
+    /**
      * Gets the width of the view.
      *
      * @return int the width of the view.
