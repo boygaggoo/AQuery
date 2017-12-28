@@ -1,7 +1,7 @@
 # AQuery
 A Write Less Do More Library for Android
 
-AQuery is a lightweight library that allows UI manipulation in a syntatically similar way to the Javascript library JQuery. AQuery aims to remove the boilerplate code that comes with UI manipualation in Android. This helps with readibility, ease of development and maintainability.
+AQuery is a lightweight library that allows UI manipulation in a syntactically similar way to the Javascript library JQuery. AQuery aims to remove the boilerplate code that comes with UI manipulation in Android. This helps with readability, ease of development and maintainability.
 
 ## Code Samples
 
@@ -132,7 +132,22 @@ AQuery has a lot features other than the ones showcased here. You can view the [
 
 ## Getting Started
 
-All you have to do to get sarted with AQuery is to download [the jar file](https://github.com/mzaart/AQuery/raw/master/AQuery.jar) and place it in the app/libs folder. Then right click on the Jar file and click "Add As Library". You can import it as follows:
+### Gradle
+
+```
+  repositories {
+      maven {
+          url  "https://dl.bintray.com/mzaart/Android" 
+      }
+  }
+
+  dependencies {
+      compile 'com.mzaart:aquery:1.0'
+  }
+
+```
+
+You can import it as follows:
 
 ```java
 
@@ -177,3 +192,4 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
+
