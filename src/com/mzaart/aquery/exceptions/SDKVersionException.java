@@ -6,7 +6,7 @@ package com.mzaart.aquery.exceptions;
  * <pre>
  *     {@code
  *     // suppose that SDK version is 19
- *     $(this, R.id.some_view).z(2); // throws SDKVersionException
+ *     AQ(this, R.id.some_view).z(2); // throws SDKVersionException
  *     }
  * </pre>
  */

@@ -6,8 +6,8 @@ package com.mzaart.aquery.exceptions;
  *
  * <pre>
  *     {@code
- *     $(this, -1).click({
- *         $.toast(this, "This non-existent view is clicked"); // throws ViewNotFoundException
+ *     AQ(this, -1).click({
+ *         AQ.toast(this, "This non-existent view is clicked"); // throws ViewNotFoundException
  *     });
  *     }
  * </pre>

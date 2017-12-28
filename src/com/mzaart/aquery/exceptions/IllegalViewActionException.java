@@ -6,7 +6,7 @@ package com.mzaart.aquery.exceptions;
  * <pre>
  *     {@code
  *     Button button = (Button) findViewById(R.id.some_button);
- *     $(button).text("I am setting text on a button"); // throws IllegalViewActionException
+ *     AQ(button).text("I am setting text on a button"); // throws IllegalViewActionException
  *     }
  * </pre>
  */

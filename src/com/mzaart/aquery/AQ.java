@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings({"unused", "WeakerAccess", "Convert2Lambda", "Anonymous2MethodRef"})
-public class $ {
+public class AQ {
 
     private Context context;
     private View raw;
@@ -47,7 +47,7 @@ public class $ {
      *
      * @throws  IllegalArgumentException If context is null or not an Activity.
      */
-     public $(@NonNull Context context) {
+     public AQ(@NonNull Context context) {
         requireNotNull(context);
 
         this.context = context;
@@ -64,7 +64,7 @@ public class $ {
      *
      * @throws  IllegalArgumentException If view is null.
      */
-     public $(@NonNull View raw) {
+     public AQ(@NonNull View raw) {
         requireNotNull(raw);
 
         this.raw = raw;
@@ -83,7 +83,7 @@ public class $ {
      *
      * @throws  IllegalArgumentException If context is null or not an Activity.
      */
-     public $(@NonNull Context context, int id) {
+     public AQ(@NonNull Context context, int id) {
         this.context = context;
 
          if (!(context instanceof Activity))
@@ -106,7 +106,7 @@ public class $ {
      *
      * @throws  IllegalArgumentException If view is null.
      */
-     public $(View view, int id) {
+     public AQ(View view, int id) {
         requireNotNull(view);
 
         this.context = view.getContext();
@@ -128,7 +128,7 @@ public class $ {
      *
      * @throws  IllegalArgumentException If AQuery is null.
      */
-     public $(@NonNull $ aquery, int id) {
+     public AQ(@NonNull AQ aquery, int id) {
         requireNotNull(aquery);
 
         this.context = aquery.context;
@@ -168,27 +168,27 @@ public class $ {
      * @see  ViewNotFoundException
      */
     @NonNull
-    public $ find(int id) {
+    public AQ find(int id) {
         View target =  raw().findViewById(id);
 
         if (target == null)
             throw new ViewNotFoundException();
 
-        return new $(target);
+        return new AQ(target);
     }
 
     /**
      * Returns an AQuery object containing the view's parent.
      *
-     * @return $ AQuery object containing the view's parent.
+     * @return AQ AQuery object containing the view's parent.
      *
      * @throws  IllegalParentException If the view's parent is not a view.
      * @see IllegalParentException
      */
     @NonNull
-    public $ parent() {
+    public AQ parent() {
         try {
-            return new $((View) raw().getParent());
+            return new AQ((View) raw().getParent());
         } catch (ClassCastException e) {
             throw new IllegalParentException();
         }
@@ -220,9 +220,9 @@ public class $ {
      * @see IllegalViewActionException
      */
     @NonNull
-    public $ childAt(int index) {
+    public AQ childAt(int index) {
         if (raw() instanceof ViewGroup) {
-            return new $(((ViewGroup) raw()).getChildAt(index));
+            return new AQ(((ViewGroup) raw()).getChildAt(index));
         } else {
             throw new IllegalViewActionException();
         }
@@ -236,9 +236,9 @@ public class $ {
      * @see IllegalViewActionException
      */
     @NonNull
-    public List<$> children() {
+    public List<AQ> children() {
         if (raw() instanceof ViewGroup) {
-            List<$> children = new ArrayList<>(childCount());
+            List<AQ> children = new ArrayList<>(childCount());
             for (int i = 0; i < childCount(); i++) {
                 children.add(childAt(i));
             }
@@ -263,7 +263,7 @@ public class $ {
      * @return The current AQuery object.
      */
     @NonNull
-    public $ visibility(int visibility) {
+    public AQ visibility(int visibility) {
         raw().setVisibility(visibility);
         return this;
     }
@@ -285,13 +285,13 @@ public class $ {
     /**
      * Removes all children of a view.
      *
-     * @return $ The current AQuery object.
+     * @return AQ The current AQuery object.
      *
      * @throws  IllegalViewActionException If the view isn't a ViewGroup.
      * @see IllegalViewActionException
      */
     @NonNull
-    public $ removeAllViews() {
+    public AQ removeAllViews() {
         try {
             ((ViewGroup) raw()).removeAllViews();
             return this;
@@ -312,7 +312,7 @@ public class $ {
      * @see IllegalViewActionException
      */
     @NonNull
-    public $ append(@NonNull View v) {
+    public AQ append(@NonNull View v) {
         requireNotNull(v);
         try {
             ((ViewGroup) raw()).addView(v);
@@ -333,7 +333,7 @@ public class $ {
      * @see IllegalViewActionException
      */
     @NonNull
-    public $ append(@NonNull $ v) {
+    public AQ append(@NonNull AQ v) {
         requireNotNull(v);
 
         try {
@@ -358,7 +358,7 @@ public class $ {
      * @see IllegalViewActionException
      */
     @NonNull
-    public $ append(View v, int width, int height) {
+    public AQ append(View v, int width, int height) {
         requireNotNull(v);
 
         try {
@@ -382,7 +382,7 @@ public class $ {
      * @see IllegalViewActionException
      */
     @NonNull
-    public $ append($ v, int width, int height) {
+    public AQ append(AQ v, int width, int height) {
         requireNotNull(v);
 
         try {
@@ -405,7 +405,7 @@ public class $ {
      * @see IllegalViewActionException
      */
     @NonNull
-    public $ append(View v, ViewGroup.LayoutParams params) {
+    public AQ append(View v, ViewGroup.LayoutParams params) {
         requireNotNull(v, params);
 
         try {
@@ -428,7 +428,7 @@ public class $ {
      * @see IllegalViewActionException
      */
     @NonNull
-    public $ append($ v, ViewGroup.LayoutParams params) {
+    public AQ append(AQ v, ViewGroup.LayoutParams params) {
         requireNotNull(v, params);
 
         try {
@@ -451,7 +451,7 @@ public class $ {
      * @see IllegalViewActionException
      */
     @NonNull
-    public $ append(View v, int index) {
+    public AQ append(View v, int index) {
         requireNotNull(v);
 
         try {
@@ -474,7 +474,7 @@ public class $ {
      * @see IllegalViewActionException
      */
     @NonNull
-    public $ append($ v, int index) {
+    public AQ append(AQ v, int index) {
         requireNotNull(v);
 
         try {
@@ -498,7 +498,7 @@ public class $ {
      * @see IllegalViewActionException
      */
     @NonNull
-    public $ append(View v, int index, ViewGroup.LayoutParams params) {
+    public AQ append(View v, int index, ViewGroup.LayoutParams params) {
         requireNotNull(v, params);
 
         try {
@@ -522,7 +522,7 @@ public class $ {
      * @see IllegalViewActionException
      */
     @NonNull
-    public $ append($ v, int index, ViewGroup.LayoutParams params) {
+    public AQ append(AQ v, int index, ViewGroup.LayoutParams params) {
         requireNotNull(v, params);
 
         try {
@@ -537,17 +537,17 @@ public class $ {
      * Sets an on-click listener.
      *
      * @param onClickListener The onClickListener to be executed when the view is clicked.
-     * @return $ Current AQuery object.
+     * @return AQ Current AQuery object.
      *
      * @throws  IllegalArgumentException If the onClickListener passed is null.
      */
     @NonNull
-    public $ click(@NonNull final EventListener onClickListener) {
+    public AQ click(@NonNull final EventListener onClickListener) {
         requireNotNull(onClickListener);
         raw().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onClickListener.onEvent(new $(view));
+                onClickListener.onEvent(new AQ(view));
             }
         });
 
@@ -560,7 +560,7 @@ public class $ {
      * @return The current AQuery object.
      */
     @NonNull
-    public $ click() {
+    public AQ click() {
         raw().performClick();
         return this;
     }
@@ -576,7 +576,7 @@ public class $ {
      * @throws IllegalArgumentException If the runnable passed in null
      */
     @NonNull
-    public $ preDraw(@NonNull final Runnable runnable) {
+    public AQ preDraw(@NonNull final Runnable runnable) {
         requireNotNull(runnable);
         final ViewTreeObserver treeObserver = raw().getViewTreeObserver();
         treeObserver.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
@@ -602,7 +602,7 @@ public class $ {
      * @throws IllegalArgumentException If the runnable passed in null
      */
     @NonNull
-    public $ ready(@NonNull final Runnable runnable) {
+    public AQ ready(@NonNull final Runnable runnable) {
         requireNotNull(runnable);
         ViewTreeObserver treeObserver = raw().getViewTreeObserver();
         treeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -647,7 +647,7 @@ public class $ {
      * @return The Current AQuery object.
      */
     @NonNull
-    public $ x(float position) {
+    public AQ x(float position) {
         raw().setX(position);
         return this;
     }
@@ -668,7 +668,7 @@ public class $ {
      * @return The Current AQuery object.
      */
     @NonNull
-    public $ y(float position) {
+    public AQ y(float position) {
         raw().setY(position);
         return this;
     }
@@ -698,7 +698,7 @@ public class $ {
      * @see SDKVersionException
      */
     @NonNull
-    public $ z(float position) {
+    public AQ z(float position) {
         if (Build.VERSION.SDK_INT < 21)
             throw new SDKVersionException();
         else {
@@ -723,7 +723,7 @@ public class $ {
      * @return The current AQuery object.
      */
     @NonNull
-    public $ translationX(float offset) {
+    public AQ translationX(float offset) {
         raw().setTranslationX(offset);
         return this;
     }
@@ -744,7 +744,7 @@ public class $ {
      * @return The current AQuery object.
      */
     @NonNull
-    public $ translationY(float offset) {
+    public AQ translationY(float offset) {
         raw().setTranslationY(offset);
         return this;
     }
@@ -771,7 +771,7 @@ public class $ {
      * @return The current AQuery object.
      */
     @NonNull
-    public $ translationZ(float offset) {
+    public AQ translationZ(float offset) {
         if (Build.VERSION.SDK_INT < 21)
             throw new SDKVersionException();
         else {
@@ -798,7 +798,7 @@ public class $ {
      * 
      * @throws  IllegalArgumentException If animation is null
      */
-    public $ animate(@NonNull Animation animation) {
+    public AQ animate(@NonNull Animation animation) {
         requireNotNull(animation);
         raw().startAnimation(animation);
         return this;
@@ -810,7 +810,7 @@ public class $ {
      * @return The current AQuery object.
      */
     @NonNull
-    public $ bringToFront() {
+    public AQ bringToFront() {
         raw().bringToFront();
         return this;
     }
@@ -842,7 +842,7 @@ public class $ {
      * @see IllegalViewActionException
      */
     @NonNull
-    public $ text(String text) {
+    public AQ text(String text) {
         if (raw() instanceof EditText) {
             ((EditText) raw()).setText(text);
         } else if (raw() instanceof TextView) {
@@ -863,7 +863,7 @@ public class $ {
      * @throws IllegalViewActionException If the view isn't a TextView or EditText
      * @see IllegalViewActionException
      */
-    public $ textSize(float textSize) {
+    public AQ textSize(float textSize) {
         if (raw() instanceof EditText) {
             ((EditText) raw()).setTextSize(textSize);
         } else if (raw() instanceof TextView) {
@@ -904,7 +904,7 @@ public class $ {
      * @throws IllegalViewActionException If the view isn't a TextView or EditText
      * @see IllegalViewActionException
      */
-    public $ typeFace(@NonNull String path) {
+    public AQ typeFace(@NonNull String path) {
         requireNotNull(path);
         Typeface t = Typeface.createFromAsset(context().getAssets(), path);
         return typeFace(t);
@@ -921,7 +921,7 @@ public class $ {
      * @throws IllegalViewActionException If the view isn't a TextView or EditText
      * @see IllegalViewActionException
      */
-    public $ typeFace(@NonNull Typeface typeface) {
+    public AQ typeFace(@NonNull Typeface typeface) {
         requireNotNull(typeface);
         if (raw() instanceof EditText) {
             ((EditText) raw()).setTypeface(typeface);
@@ -956,13 +956,13 @@ public class $ {
      * Sets a Bitmap to an ImageView.
      *
      * @param  bitmap The bitmap to set.
-     * @return $ Current AQuery object
+     * @return AQ Current AQuery object
      *
      * @throws  IllegalViewActionException If the view isn't an ImageView.
      * @see IllegalViewActionException
      */
     @NonNull
-    public $ bitmap(Bitmap bitmap) {
+    public AQ bitmap(Bitmap bitmap) {
         try {
             ((ImageView) raw()).setImageBitmap(bitmap);
             return this;
@@ -980,7 +980,7 @@ public class $ {
      * @throws IllegalArgumentException If the background drawable is null
      */
     @NonNull
-    public $ background(@NonNull Drawable background) {
+    public AQ background(@NonNull Drawable background) {
         requireNotNull(background);
         raw().setBackground(background);
         return this;
@@ -997,7 +997,7 @@ public class $ {
      * @see IllegalViewActionException
      */
     @NonNull
-    public $ max(int max) {
+    public AQ max(int max) {
         if (raw() instanceof SeekBar) {
             ((SeekBar) raw()).setMax(max);
             return this;
@@ -1035,7 +1035,7 @@ public class $ {
      * @see SDKVersionException
      */
     @NonNull
-    public $ min(int min) {
+    public AQ min(int min) {
         if (raw() instanceof SeekBar) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 ((SeekBar) raw()).setMin(min);
@@ -1084,7 +1084,7 @@ public class $ {
      * @see SDKVersionException
      */
     @NonNull
-    public $ progress(int progress) {
+    public AQ progress(int progress) {
         return progress(progress, false);
     }
 
@@ -1102,7 +1102,7 @@ public class $ {
      * @see SDKVersionException
      */
     @NonNull
-    public $ progress(int progress, boolean animate) {
+    public AQ progress(int progress, boolean animate) {
         if (raw() instanceof SeekBar) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 ((SeekBar) raw()).setProgress(progress, animate);
@@ -1144,7 +1144,7 @@ public class $ {
      *
      * @throws IllegalArgumentException If the listener is null
      */
-    public $ stopTrackingTouch(@NonNull final EventListener eventListener) {
+    public AQ stopTrackingTouch(@NonNull final EventListener eventListener) {
         requireNotNull(eventListener);
         if (raw() instanceof SeekBar) {
             ((SeekBar) raw()).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -1158,7 +1158,7 @@ public class $ {
 
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {
-                    eventListener.onEvent(new $(seekBar));
+                    eventListener.onEvent(new AQ(seekBar));
                 }
             });
             return this;
@@ -1181,7 +1181,7 @@ public class $ {
      *
      * @throws IllegalArgumentException If the listener is null
      */
-    public $ startTrackingTouch(@NonNull final EventListener eventListener) {
+    public AQ startTrackingTouch(@NonNull final EventListener eventListener) {
         requireNotNull(eventListener);
         if (raw() instanceof SeekBar) {
             ((SeekBar) raw()).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -1191,7 +1191,7 @@ public class $ {
 
                 @Override
                 public void onStartTrackingTouch(SeekBar seekBar) {
-                    eventListener.onEvent(new $(seekBar));
+                    eventListener.onEvent(new AQ(seekBar));
                 }
 
                 @Override
@@ -1218,13 +1218,13 @@ public class $ {
      *
      * @throws IllegalArgumentException If the listener is null
      */
-    public $ progressChanged(@NonNull final SeekBarProgressChangedListener listener) {
+    public AQ progressChanged(@NonNull final SeekBarProgressChangedListener listener) {
         requireNotNull(listener);
         if (raw() instanceof SeekBar) {
             ((SeekBar) raw()).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                    listener.onProgressChanged(new $(seekBar), i, b);
+                    listener.onProgressChanged(new AQ(seekBar), i, b);
                 }
 
                 @Override
@@ -1255,7 +1255,7 @@ public class $ {
      *
      * @throws IllegalArgumentException If the listener is null
      */
-    public $ seekBarChanged(@NonNull final SeekBar.OnSeekBarChangeListener listener) {
+    public AQ seekBarChanged(@NonNull final SeekBar.OnSeekBarChangeListener listener) {
         requireNotNull(listener);
         if (raw() instanceof SeekBar) {
             ((SeekBar) raw()).setOnSeekBarChangeListener(listener);
@@ -1281,7 +1281,7 @@ public class $ {
      * @return The current AQuery object.
      */
     @NonNull
-    public $ width(int width) {
+    public AQ width(int width) {
         ViewGroup.LayoutParams params = raw().getLayoutParams();
         params.width = width;
         raw().requestLayout();
@@ -1304,7 +1304,7 @@ public class $ {
      * @return The current AQuery object.
      */
     @NonNull
-    public $ height(int height) {
+    public AQ height(int height) {
         ViewGroup.LayoutParams params = raw().getLayoutParams();
         params.height = height;
         raw().requestLayout();
@@ -1323,7 +1323,7 @@ public class $ {
      * @throws  IllegalArgumentException If the context or parent is null.
      */
     @NonNull
-    public static $ inflate(@NonNull Context context, int id, @NonNull ViewGroup parent) {
+    public static AQ inflate(@NonNull Context context, int id, @NonNull ViewGroup parent) {
         requireNotNull(context, parent);
         return inflate(context, id, parent, false);
     }
@@ -1340,7 +1340,7 @@ public class $ {
      * the parent view is a ViewGroup.
      */
     @NonNull
-    public static $ inflate(@NonNull Context context, int id, @NonNull $ parent) {
+    public static AQ inflate(@NonNull Context context, int id, @NonNull AQ parent) {
         requireNotNull(context, parent);
         return inflate(context, id, parent, false);
     }
@@ -1357,10 +1357,10 @@ public class $ {
      * @throws  IllegalArgumentException If the context or parent is null.
      */
     @NonNull
-    public static $ inflate(Context context, int id, ViewGroup parent, boolean attachToParent) {
+    public static AQ inflate(Context context, int id, ViewGroup parent, boolean attachToParent) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View layout = inflater.inflate(id, parent, attachToParent);
-        return new $(layout);
+        return new AQ(layout);
     }
 
     /**
@@ -1376,11 +1376,11 @@ public class $ {
      * the parent view isn't a ViewGroup.
      */
     @NonNull
-    public static $ inflate(Context context, int id, $ parent, boolean attachToParent) {
+    public static AQ inflate(Context context, int id, AQ parent, boolean attachToParent) {
         try {
             LayoutInflater inflater = LayoutInflater.from(context);
             View layout = inflater.inflate(id, (ViewGroup) parent.raw(), attachToParent);
-            return new $(layout);
+            return new AQ(layout);
         } catch (ClassCastException e) {
             throw new IllegalArgumentException("The parent view isn't a ViewGroup.");
         }

@@ -23,8 +23,8 @@ public class Constructors {
      * @exception IllegalArgumentException If view is null.
      * @see  IllegalArgumentException
      */
-    public static $ $(View v) {
-        return new $(v);
+    public static AQ AQ(View v) {
+        return new AQ(v);
     }
 
     /**
@@ -36,8 +36,8 @@ public class Constructors {
      * @exception IllegalArgumentException If context is null or not an Activity.
      * @see  IllegalArgumentException
      */
-    public static $ $(Context context) {
-        return new $(context);
+    public static AQ AQ(Context context) {
+        return new AQ(context);
     }
 
     /**
@@ -53,8 +53,8 @@ public class Constructors {
      * @exception IllegalArgumentException If context is null or not an Activity.
      * @see  IllegalArgumentException
      */
-    public static $ $(Context context, int id) {
-        return new $(context, id);
+    public static AQ AQ(Context context, int id) {
+        return new AQ(context, id);
     }
 
     /**
@@ -70,8 +70,8 @@ public class Constructors {
      * @exception IllegalArgumentException If view is null.
      * @see  IllegalArgumentException
      */
-    public static $ $(View view, int id) {
-        return new $(view, id);
+    public static AQ AQ(View view, int id) {
+        return new AQ(view, id);
     }
 
     /**
@@ -87,7 +87,7 @@ public class Constructors {
      * @exception IllegalArgumentException If AQuery is null.
      * @see  IllegalArgumentException
      */
-    public static $ $($ aquery, int id) {
-        return new $(aquery, id);
+    public static AQ AQ(AQ aquery, int id) {
+        return new AQ(aquery, id);
     }
 }
