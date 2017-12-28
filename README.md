@@ -10,13 +10,13 @@ Using AQuery Objects
 ```java
   
   // constructing an AQuery object from a context
-  $ rootView = $(this); // the underlying View is the activity's root layout
+  AQ rootView = AQ(this); // the underlying View is the activity's root layout
   
   // constructing an AQuery object from a view
-  $ someView = $(findViewById(R.id.some_view));
+  AQ someView = AQ(findViewById(R.id.some_view));
   
   // constructing an AQuery object from Resource Id
-  $ anotherView = $(this, R.id.another_view));
+  AQ anotherView = AQ(this, R.id.another_view));
 
   // to retrieve the plain View object:
   View rawView = someView.raw();
@@ -47,9 +47,9 @@ Login User Example
 
   // AQuery
   
-  $(this, R.id.login_button).click(view -> {
-      String email = $(this, R.id.email).text();
-      String password = $(this, R.id.password).text();
+  AQ(this, R.id.login_button).click(view -> {
+      String email = AQ(this, R.id.email).text();
+      String password = AQ(this, R.id.password).text();
       loginUser(email, password);
   });
   
@@ -81,9 +81,9 @@ Inflating Views
 
   // AQuery
   
-  $ parent = $(this, R.id.parent_layout);
-  $.inflate(this, R.id.child_view, parent)
-      .ready(() -> $.toast(this, "The view is rendered!!"))
+  AQ parent = AQ(this, R.id.parent_layout);
+  AQ.inflate(this, R.id.child_view, parent)
+      .ready(() -> AQ.toast(this, "The view is rendered!!"))
       .click(view -> {
           // do something
       });
@@ -121,7 +121,7 @@ Animations
   
   // AQuery
   
-  $(this, R.id.animated_view)
+  AQ(this, R.id.animated_view)
        .animate(new AnimationBuilder(R.anim.some_animation, this)
        .onEnd(animation -> // do something)
        .build());
@@ -136,13 +136,11 @@ AQuery has a lot features other than the ones showcased here. You can view the [
 
 ```
   repositories {
-      maven {
-          url  "https://dl.bintray.com/mzaart/Android" 
-      }
+      jcenter()
   }
 
   dependencies {
-      compile 'com.mzaart:aquery:1.0'
+      compile 'com.mzaart:aquery:1.1'
   }
 
 ```
@@ -151,7 +149,7 @@ You can import it as follows:
 
 ```java
 
-  import com.mzaart.aquery.$;
+  import com.mzaart.aquery.AQ;
   import static com.mzaart.aquery.Constructors.*;
   
 ```
@@ -161,7 +159,7 @@ Note that the static import isn't necessary. Its sole purpose is to make the ins
 ```java
   
   // you can still use AQuery without the static import
-  $ view = new $(this, R.id.some_view);
+  AQ view = new AQ(this, R.id.some_view);
 
 ```
 
@@ -169,9 +167,9 @@ In fact, the static import is completely unnecessary in Kotlin since you create 
 
 ```kotlin
   
-  import com.mzaart.aquery.$;
+  import com.mzaart.aquery.AQ;
   
-  var view = $(this, R.id.some_view);
+  var view = AQ(this, R.id.some_view);
   
 ```
 
